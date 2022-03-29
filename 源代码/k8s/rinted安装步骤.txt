@@ -1,0 +1,12 @@
+cd rinetd
+sed -i 's/65536/65535/g' rinetd.c
+mkdir -p /usr/man/
+yum install -y gcc
+make && make install
+
+vim /etc/rinetd.conf
+0.0.0.0 8000 10.100.22.231 8000
+
+rinetd -c /etc/rinetd.conf
+
+netstat -tulpn

@@ -1,0 +1,30 @@
+文件共享服务器：
+yum install -y nfs-utils rpcbind
+mkdir data
+cd data
+mkdir www-data
+cd www-data
+
+vim /etc/exports
+   /usr/local/data/www-data 192.168.33.128/24(rw, sync)
+
+systemctl start nfs.service
+systemctl start rpcbind.service
+systemctl enable nfs.service
+systemctl enable rpcbind.service
+
+systemctl restart nfs.service
+systemctl restart rpcbind.service
+查看：
+exportfs
+
+
+节点服务器：
+yum install -y nfs-utils
+systemctl start nfs.service
+systemctl enable nfs.service
+showmount -e 192.168.33.128
+mount 192.168.33.128:/usr/local/data/www-data /mnt
+
+
+
